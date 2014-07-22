@@ -61,6 +61,8 @@ var server = http.createServer(function (request, response) {
 	response.end();
 });
 server.listen(777);
+console.log("-========[ WIfi Scan JS ]========-\n");
+console.log("[!] HTTP Server is up. Go to http://localhost:777\n\n");
 
 
 pcap.createSession("mon0", '(type mgt subtype beacon) or (type mgt subtype probe-resp ) or (type ctl subtype rts ) or (type mgt subtype probe-req )').
@@ -73,7 +75,7 @@ if (type == 0 && subType == 5) {
 	ap.mac = shost;
 	AP.push(ap);
 	APh.push(ESSID);
-	console.log(ESSID + "- Beacon" + ap.mac + "_" + AP.length);
+	console.log(ESSID + "- Probe Response - " + ap.mac);
 	}
 	
 } else if (type == 0 && subType == 8) {
@@ -83,7 +85,7 @@ if (type == 0 && subType == 5) {
 	ap.mac = shost;
 	AP.push(ap);
 	APh.push(ESSID);
-	console.log(ESSID + "- Beacon" + ap.mac+ "_" + AP.length);
+	console.log(ESSID + " - Beacon - " + ap.mac);
 	}
 } else if (type == 1 && subType == 11) {
 
@@ -105,5 +107,3 @@ if (type == 0 && subType == 5) {
 	}
 } 
 });
-
-
