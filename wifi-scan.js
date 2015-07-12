@@ -35,10 +35,10 @@ function hex2a(value) {
 
 function extract_ESSID(packet) {
 	var hex = packet.toString("hex");
-	var start = hex.search("10400");
-	start = start + 5;
+	var start = hex.search("00006400");
+	start = start + 8;
 	var length = parseInt(hex.substr(126, 2), 16).toString(10);
-	length = length * 2;
+	length = length * 2 + 6;
 	start = start + 2;
 	var ESSID = hex.substr(start, length);
 	return hex2a(ESSID);
@@ -65,7 +65,7 @@ console.log("-========[ WIfi Scan JS ]========-\n");
 console.log("[!] HTTP Server is up. Go to http://localhost:777\n\n");
 
 
-pcap.createSession("mon0", '(type mgt subtype beacon) or (type mgt subtype probe-resp ) or (type ctl subtype rts ) or (type mgt subtype probe-req )').
+pcap.createSession("wlan2", '(type mgt subtype beacon) or (type mgt subtype probe-resp ) or (type ctl subtype rts ) or (type mgt subtype probe-req )').
 on('packet', function (raw_packet) {
 with(pcap.decode.packet(raw_packet).link.ieee802_11Frame)
 if (type == 0 && subType == 5) {
